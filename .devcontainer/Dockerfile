@@ -10,7 +10,7 @@ RUN touch /etc/apt/sources.list \
     && echo "deb http://mirrors.aliyun.com/debian stable-updates main contrib non-free" >> /etc/apt/sources.list \
     && echo "deb http://mirrors.aliyun.com/debian-security stable-security main contrib non-free" >> /etc/apt/sources.list
 
-# 安装 Chrome 所需的依赖库
+# 安装 Edge 所需的依赖库
 RUN apt-get update && apt-get install -y \
     vim \
     libglib2.0-0 \

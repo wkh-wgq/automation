@@ -58,3 +58,5 @@ group :development do
   gem "web-console"
 end
 
+# 模拟用户操作浏览器
+gem "selenium-webdriver", "~> 4.29"
