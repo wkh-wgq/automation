@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_12_062951) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_12_075126) do
   create_table "addresses", force: :cascade do |t|
     t.string "postal_code"
     t.string "city"
@@ -28,6 +28,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_12_062951) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "plans", force: :cascade do |t|
+    t.string "link", null: false
+    t.integer "quantity", default: 1, null: false
+    t.integer "batch_size", null: false
+    t.time "execute_time", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "records", force: :cascade do |t|
+    t.integer "plan_id", null: false
+    t.integer "virtual_user_id", null: false
+    t.string "order_no"
+    t.string "failed_step"
+    t.string "error_message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plan_id", "virtual_user_id"], name: "index_records_on_plan_id_and_virtual_user_id", unique: true
+    t.index ["plan_id"], name: "index_records_on_plan_id"
+    t.index ["virtual_user_id"], name: "index_records_on_virtual_user_id"
+  end
+
   create_table "virtual_users", force: :cascade do |t|
     t.string "email"
     t.string "password"
@@ -39,6 +61,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_12_062951) do
     t.index ["credit_card_id"], name: "index_virtual_users_on_credit_card_id"
   end
 
+  add_foreign_key "records", "plans"
+  add_foreign_key "records", "virtual_users"
   add_foreign_key "virtual_users", "addresses"
   add_foreign_key "virtual_users", "credit_cards"
 end

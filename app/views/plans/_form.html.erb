@@ -1,0 +1,37 @@
+<%= form_with(model: plan) do |form| %>
+  <% if plan.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(plan.errors.count, "error") %> prohibited this plan from being saved:</h2>
+
+      <ul>
+        <% plan.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :link, style: "display: block" %>
+    <%= form.text_field :link %>
+  </div>
+
+  <div>
+    <%= form.label :quantity, style: "display: block" %>
+    <%= form.number_field :quantity %>
+  </div>
+
+  <div>
+    <%= form.label :batch_size, style: "display: block" %>
+    <%= form.number_field :batch_size %>
+  </div>
+
+  <div>
+    <%= form.label :execute_time, style: "display: block" %>
+    <%= form.time_field :execute_time %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
