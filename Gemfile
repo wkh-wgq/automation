@@ -60,3 +60,6 @@ end
 
 # 模拟用户操作浏览器
 gem "selenium-webdriver", "~> 4.29"
+
+# 生成假数据
+gem "faker", "~> 3.5"
