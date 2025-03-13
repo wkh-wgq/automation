@@ -56,6 +56,9 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # 自动加注释
+  gem "annotate", "~> 2.6"
 end
 
 # 模拟用户操作浏览器

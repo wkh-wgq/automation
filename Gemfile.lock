@@ -72,6 +72,9 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
+    annotate (2.6.5)
+      activerecord (>= 2.3.0)
+      rake (>= 0.8.7)
     ast (2.4.2)
     base64 (0.2.0)
     bcrypt_pbkdf (1.1.1)
@@ -356,6 +359,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  annotate (~> 2.6)
   bootsnap
   brakeman
   cssbundling-rails
