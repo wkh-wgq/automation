@@ -7,6 +7,8 @@ class CreateVirtualUsers < ActiveRecord::Migration[8.0]
       t.belongs_to :credit_card, null: false, foreign_key: true
 
       t.timestamps
+
+      t.index :email, unique: true
     end
   end
 end

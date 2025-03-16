@@ -36,7 +36,14 @@ module Automation
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    config.time_zone = "Beijing"
+
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # 自定义日志格式
+    config.log_formatter = proc do |severity, timestamp, progname, msg|
+      "#{timestamp.to_formatted_s(:db)} [#{severity}] #{msg}\n"
+    end
   end
 end

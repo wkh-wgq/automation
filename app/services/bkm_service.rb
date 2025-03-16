@@ -42,7 +42,7 @@ class BkmService < ApplicationService
   def select_quantity
     select_element = driver.find_element(:id, "quantity")
     select = Selenium::WebDriver::Support::Select.new(select_element)
-    select.select_by(:index, plan.quantity - 1)
+    select.select_by(:index, get_quantity - 1)
   end
 
   # 加入购物车
@@ -73,14 +73,29 @@ class BkmService < ApplicationService
     driver.find_element(:id, "form1Button").click
   end
 
+  # 刷新页面
   def refresh
     driver.navigate.refresh
   end
 
+  # 获取购买数量，取计划的数量和商品限购数量的最小值
+  def get_quantity
+    Rails.cache.fetch("bkm.product.limit-#{plan.id}", expires_in: 60.minutes) do
+      begin
+        cache_limit = driver.find_element(class: "limit").text.scan(/\d+/).first.to_i
+        [ cache_limit, plan.quantity ].min
+      rescue Exception => _e
+        plan.quantity
+      end.tap do |num|
+        logger.info "获取抢购数量：#{num}"
+      end
+    end
+  end
+
   def execute_with_log(method)
-    logger.info "用户(#{virtual_user.email})下单-(#{method})流程开始"
+    logger.debug "用户(#{virtual_user.email})下单-(#{method})流程开始"
     send(method)
-    logger.info "用户(#{virtual_user.email})下单-(#{method})流程结束"
+    logger.debug "用户(#{virtual_user.email})下单-(#{method})流程结束"
   rescue Exception => e
     logger.error "用户(#{virtual_user.email})下单-(#{method})流程异常：#{e.message}"
     record.update(failed_step: method, error_message: e.message)

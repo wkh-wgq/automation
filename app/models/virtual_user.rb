@@ -8,4 +8,6 @@
 class VirtualUser < ApplicationRecord
   belongs_to :address
   belongs_to :credit_card
+
+  validates_uniqueness_of :email
 end

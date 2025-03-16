@@ -6,7 +6,7 @@ class BroswerDriver
     options = generate_options(type, &block)
     driver = Selenium::WebDriver.for type, options: options
     # 隐式等待时间(s)，作用是在driver查找元素时，如果没有立即找到，会等待一段时间，直到元素出现或者超时
-    driver.manage.timeouts.implicit_wait = 20
+    driver.manage.timeouts.implicit_wait = 30
     driver
   end
 

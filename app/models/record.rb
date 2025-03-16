@@ -9,4 +9,6 @@
 class Record < ApplicationRecord
   belongs_to :plan
   belongs_to :virtual_user
+
+  validates :virtual_user_id, uniqueness: { scope: :plan_id }
 end

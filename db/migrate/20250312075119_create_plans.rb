@@ -4,7 +4,7 @@ class CreatePlans < ActiveRecord::Migration[8.0]
       t.string :link, null: false
       t.integer :quantity, null: false, default: 1
       t.integer :batch_size, null: false
-      t.time :execute_time, null: false
+      t.datetime :execute_time, null: false
 
       t.timestamps
     end
