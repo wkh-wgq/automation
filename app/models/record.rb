@@ -11,4 +11,12 @@ class Record < ApplicationRecord
   belongs_to :virtual_user
 
   validates :virtual_user_id, uniqueness: { scope: :plan_id }
+
+  scope :successful, -> do
+    where("order_no is not null")
+  end
+
+  scope :failed, -> do
+    where("failed_step is not null")
+  end
 end

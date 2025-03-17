@@ -10,9 +10,7 @@ class BkmService < ApplicationService
   end
 
   def run
-    # 前往商品页面
-    driver.get plan.link
-    %w[select_quantity add_cart login submit_order fill_order_no].each do |method|
+    %w[go_product_page select_quantity add_cart login submit_order fill_order_no].each do |method|
       send(:execute_with_log, method)
     end
     logger.info "用户(#{virtual_user.email})下单完成，订单号：#{record.order_no}"
@@ -20,6 +18,14 @@ class BkmService < ApplicationService
     logger.error "用户(#{virtual_user.email})下单流程异常结束"
   ensure
     driver.quit
+  end
+
+  # 前往商品页面
+  def go_product_page
+    url = Rails.cache.fetch("bkm.product.page_url-#{plan.id}", expires_in: 60.minutes) do
+      plan.link.present? ? plan.link : get_target_product_page_url
+    end
+    driver.get url
   end
 
   # 登陆
@@ -89,6 +95,18 @@ class BkmService < ApplicationService
       end.tap do |num|
         logger.info "获取抢购数量：#{num}"
       end
+    end
+  end
+
+  # 获取第一个新品的url
+  def get_target_product_page_url
+    # 前往新品页面
+    driver.get "https://www.pokemoncenter-online.com/search/?prefn1=releaseType&prefv1=1&srule=top-new-product"
+    # 点击新品列表的第一个新品
+    driver.find_element(class: "comltemlist").find_element(tag_name: "li").click
+    logger.info "获取抢单商品的url：#{driver.current_url}"
+    if driver.current_url.match?(%r{https://www\.pokemoncenter-online\.com/\d{12,13}\.html})
+      driver.current_url
     end
   end
 
