@@ -1,22 +1,8 @@
-<div id="<%= dom_id plan %>">
-  <p>
-    <strong>Link:</strong>
-    <%= plan.link %>
-  </p>
 
-  <p>
-    <strong>Quantity:</strong>
-    <%= plan.quantity %>
-  </p>
-
-  <p>
-    <strong>Batch size:</strong>
-    <%= plan.batch_size %>
-  </p>
-
-  <p>
-    <strong>Execute time:</strong>
-    <%= plan.execute_time %>
-  </p>
-
-</div>
+<tr id="<%= dom_id plan %>">
+  <td><%= plan.id %></td>
+  <td><%= plan.link %></td>
+  <td><%= plan.quantity %></td>
+  <td><%= plan.batch_size %></td>
+  <td><%= plan.execute_time&.strftime("%Y-%m-%d %H:%M:%S") %></td>
+</tr>   

@@ -11,27 +11,27 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :link, style: "display: block" %>
-    <%= form.text_field :link %>
+  <div class="mb-3 mt-3">
+    <%= form.label '链接', class: "form-label" %>
+    <%= form.text_field :link, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :quantity, style: "display: block" %>
-    <%= form.number_field :quantity %>
+  <div class="mb-3 mt-3">
+    <%= form.label '抢购数量', class: "form-label" %>
+    <%= form.number_field :quantity, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :batch_size, style: "display: block" %>
-    <%= form.number_field :batch_size %>
+  <div class="mb-3 mt-3">
+    <%= form.label '批次数量', class: "form-label" %>
+    <%= form.number_field :batch_size, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :execute_time, style: "display: block" %>
-    <%= form.time_field :execute_time %>
+  <div class="mb-3 mt-3">
+    <%= form.label '执行时间(yyyy-mm-dd hh:mm:ss)', class: "form-label" %>
+    <%= form.text_field :execute_time, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="d-grid gap-2">
+    <%= form.submit '创建', class: 'btn btn-primary' %>
   </div>
-<% end %>
+<% end %> 

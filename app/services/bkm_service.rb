@@ -115,7 +115,7 @@ class BkmService < ApplicationService
     send(method)
     logger.debug "用户(#{virtual_user.email})下单-(#{method})流程结束"
   rescue Exception => e
-    logger.error "用户(#{virtual_user.email})下单-(#{method})流程异常：#{e.message}"
+    logger.error "用户(#{virtual_user.email})下单-(#{method})-(#{driver.title})流程异常：#{e.message}"
     record.update(failed_step: method, error_message: e.message)
     raise e
   end

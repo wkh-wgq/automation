@@ -1,11 +1,16 @@
-<% content_for :title, "New plan" %>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5>新建计划</h5>
+      </div>
+      <div class="col-3" style="text-align: end">
+        <%= link_to "返回", plans_path, class: 'btn btn-secondary btn-sm' %>
+      </div>
+    </div>
+  </div>
 
-<h1>New plan</h1>
-
-<%= render "form", plan: @plan %>
-
-<br>
-
-<div>
-  <%= link_to "Back to plans", plans_path %>
+  <div data-controller="record" class="card-body border border-top-0">
+    <%= render 'form', plan: @plan%>
+  </div>
 </div>

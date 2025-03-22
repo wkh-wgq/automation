@@ -1,16 +1,32 @@
 <p style="color: green"><%= notice %></p>
 
 <% content_for :title, "Plans" %>
+<div class="card shadow-sm">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5>计划列表</h5>
+      </div>
+      <div class="col-3" style="text-align: end;">
+        <%= link_to '新建计划', new_plan_path, class: 'btn btn-primary btn-sm' %>
+      </div>
+    </div>
+  </div>
 
-<h1>Plans</h1>
-
-<div id="plans">
-  <% @plans.each do |plan| %>
-    <%= render plan %>
-    <p>
-      <%= link_to "Show this plan", plan %>
-    </p>
-  <% end %>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>链接</th>
+          <th>抢购数量(个)</th>
+          <th>批次数量(个)</th>
+          <th>执行时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @plans %>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<%= link_to "New plan", new_plan_path %>

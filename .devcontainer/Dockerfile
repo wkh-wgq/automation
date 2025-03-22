@@ -40,6 +40,40 @@ RUN wget -q -O /tmp/edgedriver.zip https://msedgedriver.azureedge.net/133.0.3065
     && unzip /tmp/edgedriver.zip -d /usr/local/bin/ \
     && chmod +x /usr/local/bin/msedgedriver
 
+
+
+# # 安装 Chrome 所需的依赖库
+# RUN apt-get update && apt-get install -y \
+#     wget \
+#     unzip \
+#     libglib2.0-0 \
+#     libnss3 \
+#     libgdk-pixbuf2.0-0 \
+#     libgtk-3-0 \
+#     libxss1 \
+#     libasound2 \
+#     libxtst6 \
+#     libgbm1 \
+#     libxshmfence1 \
+#     --no-install-recommends \
+#     && rm -rf /var/lib/apt/lists/*
+
+# # 设置工作目录
+# WORKDIR /tmp
+
+# # 下载 Chrome 和 ChromeDriver
+# RUN wget https://storage.googleapis.com/chrome-for-testing-public/134.0.6998.35/linux64/chrome-linux64.zip \
+#     && wget https://storage.googleapis.com/chrome-for-testing-public/134.0.6998.35/linux64/chromedriver-linux64.zip
+
+# # 解压 Chrome 和 ChromeDriver
+# RUN mkdir -p /opt \ 
+#     && unzip chrome-linux64.zip -d /opt/chrome \
+#     && unzip chromedriver-linux64.zip -d /opt/chromedriver \
+#     && mv /opt/chrome/chrome-linux64/chrome /usr/local/bin/chrome \
+#     && mv /opt/chromedriver/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver \
+#     && chmod +x /usr/local/bin/chrome \
+#     && chmod +x /usr/local/bin/chromedriver
+
 # 清理临时文件
 RUN rm -rf /tmp/*
 
