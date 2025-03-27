@@ -65,6 +65,6 @@ class PlansController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def plan_params
-      params.expect(plan: [ :link, :quantity, :batch_size, :execute_time ])
+      params.expect(plan: [ :link, :product_name, :quantity, :batch_size, :execute_time ])
     end
 end

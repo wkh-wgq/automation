@@ -37,6 +37,3 @@
 !/app/assets/builds/.keep
 
 /node_modules
-
-# 忽略gemset文件
-.ruby-gemset

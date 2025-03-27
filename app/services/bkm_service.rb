@@ -1,5 +1,10 @@
 # 宝可梦抢单 service
 class BkmService < ApplicationService
+  # 排队的页面title
+  QUEUE_UP_TITLE = "Queue-it"
+  # 限制访问的页面title
+  RESTRICTED_ACCESS_TITLE = "Restricted access"
+
   attr_accessor :record
   attr_reader :driver
   delegate :virtual_user, :plan, to: :record
@@ -10,7 +15,7 @@ class BkmService < ApplicationService
   end
 
   def run
-    %w[go_product_page select_quantity add_cart login submit_order fill_order_no].each do |method|
+    %w[prepare go_product_page select_quantity add_cart login submit_order fill_order_no].each do |method|
       send(:execute_with_log, method)
     end
     logger.info "用户(#{virtual_user.email})下单完成，订单号：#{record.order_no}"
@@ -18,6 +23,20 @@ class BkmService < ApplicationService
     logger.error "用户(#{virtual_user.email})下单流程异常结束"
   ensure
     driver.quit
+  end
+
+  # 预备环节，看网络是否被拦截，是否需要排队
+  def prepare
+    driver.get "https://www.pokemoncenter-online.com"
+    raise "网络被限制访问！" if driver.title == RESTRICTED_ACCESS_TITLE
+    # 排队
+    if driver.title == QUEUE_UP_TITLE
+      logger.info "用户(#{virtual_user.email})开始排队"
+      while driver.title == QUEUE_UP_TITLE
+        sleep 1
+      end
+      logger.info "用户(#{virtual_user.email})排队完成，开始下单"
+    end
   end
 
   # 前往商品页面
@@ -91,22 +110,38 @@ class BkmService < ApplicationService
         cache_limit = driver.find_element(class: "limit").text.scan(/\d+/).first.to_i
         [ cache_limit, plan.quantity ].min
       rescue Exception => _e
-        plan.quantity
+        1
       end.tap do |num|
         logger.info "获取抢购数量：#{num}"
       end
     end
   end
 
-  # 获取第一个新品的url
+  # 前往新品页面，根据商品名称查询链接
   def get_target_product_page_url
+    logger.debug "开始为商品(#{plan.product_name})查询链接"
     # 前往新品页面
     driver.get "https://www.pokemoncenter-online.com/search/?prefn1=releaseType&prefv1=1&srule=top-new-product"
-    # 点击新品列表的第一个新品
-    driver.find_element(class: "comltemlist").find_element(tag_name: "li").click
-    logger.info "获取抢单商品的url：#{driver.current_url}"
-    if driver.current_url.match?(%r{https://www\.pokemoncenter-online\.com/\d{12,13}\.html})
-      driver.current_url
+    product_tag = detect_product_tag
+    # 如果找不到商品，就一直点击下一页，直到点不动为止
+    while product_tag.blank?
+      begin
+        # 点击下一页
+        driver.find_element(class: "next").click
+      rescue Selenium::WebDriver::Error::ElementClickInterceptedError => _e
+        raise "获取商品(#{plan.product_name})链接失败：找不到商品"
+      end
+      product_tag = detect_product_tag
+    end
+    "https://www.pokemoncenter-online.com/#{product_tag.attribute("data-pid")}.html".tap do |url|
+      logger.info "获取目标商品的url：#{url}"
+    end
+  end
+
+  # 在新品列表查找目标商品
+  def detect_product_tag
+    driver.find_element(class: "comltemlist").find_elements(class: "product").detect do |p|
+      plan.product_name == p.find_element(class: "txtBox").find_element(class: "txt").text
     end
   end
 
@@ -115,7 +150,7 @@ class BkmService < ApplicationService
     send(method)
     logger.debug "用户(#{virtual_user.email})下单-(#{method})流程结束"
   rescue Exception => e
-    logger.error "用户(#{virtual_user.email})下单-(#{method})-(#{driver.title})流程异常：#{e.message}"
+    logger.error "用户(#{virtual_user.email})下单-(#{method})-页面(#{driver.title})流程异常：#{e.message}"
     record.update(failed_step: method, error_message: e.message)
     raise e
   end
