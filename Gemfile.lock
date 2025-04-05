@@ -145,6 +145,10 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.4)
+    mime-types (3.6.2)
+      logger
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2025.0325)
     mini_mime (1.1.5)
     minitest (5.25.4)
     msgpack (1.8.0)
@@ -184,6 +188,9 @@ GEM
     parser (3.3.7.1)
       ast (~> 2.4.1)
       racc
+    playwright-ruby-client (1.51.0)
+      concurrent-ruby (>= 1.1.6)
+      mime-types (>= 3.0)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -364,6 +371,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  playwright-ruby-client (~> 1.51)
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.1)

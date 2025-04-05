@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_25_011300) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_01_133836) do
   create_table "addresses", force: :cascade do |t|
     t.string "postal_code"
-    t.string "city"
+    t.string "house_number"
     t.string "street_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -36,6 +36,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_011300) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "product_name"
+    t.string "type", default: "normal", null: false
   end
 
   create_table "records", force: :cascade do |t|
@@ -58,6 +59,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_011300) do
     t.integer "credit_card_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "mobile"
     t.index ["address_id"], name: "index_virtual_users_on_address_id"
     t.index ["credit_card_id"], name: "index_virtual_users_on_credit_card_id"
   end
