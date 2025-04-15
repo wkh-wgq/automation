@@ -60,23 +60,31 @@ module Bkm
     end
 
     def draw_lot
-      page.locator("#step3Btn").click
-      sleep(rand(4.0..8.0))
-      page.click("text=\u8A73\u3057\u304F\u898B\u308B")
-      sleep(rand(0.5..2.0))
-      page.click("p.radio label")
-      sleep(rand(0.5..2.0))
-      page.locator("#L0000000004").click
-      sleep(rand(0.5..2.0))
-      page.click("a.popup-modal.on")
-      sleep(rand(0.5..2.0))
+      page.click("#step3Btn")
+      sleep(rand(3.0..5.0))
+      ul = page.locator(".comOrderList")
+      li = ul.locator("li").nth(0)
+      li.locator("text=詳しく見る").click
+      human_delay
+      li.locator("p.radio label").check
+      human_delay
+      li.get_by_label("\u5FDC\u52DF\u8981\u9805\u306B\u540C\u610F\u3059\u308B").check
+      human_delay
+      li.locator("a.popup-modal.on").click
+      human_delay
       page.locator("#applyBtn").click
+      human_delay
     end
 
     def confirm
       sleep(rand(2.0..4.0))
+      page.wait_for_load_state(state: "load")
       page.goto "https://www.pokemoncenter-online.com/lottery-history/"
       sleep(rand(3.0..5.0))
+    end
+
+    def human_delay
+      sleep(rand(0.5..2.0))
     end
 
     def execute_with_log(method)
