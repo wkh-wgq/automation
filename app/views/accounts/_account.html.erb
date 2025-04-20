@@ -1,0 +1,12 @@
+
+<tr id="<%= dom_id account %>">
+  <td><%= account.account_no %></td>
+  <td><%= account.company.name %></td>
+  <td><%= account.user.name %></td>
+  <td class="text-end">
+    <div style="display:flex;justify-content:flex-end;">
+      <%= link_to '编辑', edit_account_path(account), class: 'btn btn-link p-0' %>
+      <%= button_to '删除', account_path(account), method: 'delete', class: 'btn btn-link p-0', data: {turbo_confirm: '确定要删除吗？'} %>
+    </div>
+  </td>
+</tr>   

@@ -1,0 +1,42 @@
+<%= form_with(model: virtual_user) do |form| %>
+  <% if virtual_user.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(virtual_user.errors.count, "error") %> prohibited this virtual_user from being saved:</h2>
+
+      <ul>
+        <% virtual_user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3 mt-3">
+    <%= form.label '姓', class: "form-label" %>
+    <%= form.text_field :last_name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3 mt-3">
+    <%= form.label '名', class: "form-label" %>
+    <%= form.text_field :first_name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3 mt-3">
+    <%= form.label '性别', class: "form-label" %>
+    <%= form.text_field :gender, class: "form-control" %>
+  </div>
+
+  <div class="mb-3 mt-3">
+    <%= form.label '手机号', class: "form-label" %>
+    <%= form.text_field :mobile, class: "form-control" %>
+  </div>
+
+  <div class="mb-3 mt-3">
+    <%= form.label '生日', class: "form-label" %>
+    <%= form.text_field :birthday, class: "form-control" %>
+  </div>
+
+  <div class="d-grid gap-2">
+    <%= form.submit '创建', class: 'btn btn-primary' %>
+  </div>
+<% end %> 

@@ -1,0 +1,33 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Emails" %>
+<div class="card shadow-sm">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5><%= @parent_email.email %>子邮箱列表</h5>
+      </div>
+      <div class="col-3" style="text-align: end">
+        <%= link_to "返回", emails_path, class: 'btn btn-secondary btn-sm' %>
+        <%= link_to '新建子邮箱', new_email_child_email_path(email_id: @parent_email.id), class: 'btn btn-primary btn-sm' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">邮箱</th>
+          <th scope="col">手机号</th>
+          <th scope="col">关联账号</th>
+          <th class="text-end" scope="col">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: '/child_emails/child_email', collection: @emails, as: :email %>
+      </tbody>
+    </table>
+    <%= paginate @emails%>
+  </div>
+</div>

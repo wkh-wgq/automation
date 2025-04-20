@@ -1,0 +1,31 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "companies" %>
+<div class="card shadow-sm">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5>公司列表</h5>
+      </div>
+      <div class="col-3" style="text-align: end;">
+        <%= link_to '回首页', root_path, class: 'btn btn-secondary btn-sm' %>
+        <%= link_to '新建公司', new_company_path, class: 'btn btn-primary btn-sm' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">名字</th>
+          <th scope="col">code</th>
+          <th class="text-end" scope="col">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @companies %>
+      </tbody>
+    </table>
+  </div>
+</div>

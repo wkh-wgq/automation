@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @virtual_user %>
+
+<div>
+  <%= link_to "Edit this virtual user", edit_virtual_user_path(@virtual_user) %> |
+  <%= link_to "Back to virtual users", virtual_users_path %>
+
+  <%= button_to "Destroy this virtual user", @virtual_user, method: :delete %>
+</div>

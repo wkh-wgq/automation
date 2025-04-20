@@ -1,0 +1,2 @@
+module VirtualUsersHelper
+end

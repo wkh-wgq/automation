@@ -1,0 +1,61 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Virtual users" %>
+<div class="card shadow-sm">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5>虚拟用户列表</h5>
+      </div>
+      <div class="col-3" style="text-align: end;">
+        <%= link_to '回首页', root_path, class: 'btn btn-secondary btn-sm' %>
+        <%= link_to '新建虚拟用户', new_virtual_user_path, class: 'btn btn-primary btn-sm' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+
+    <div class="row g-0">
+      <div class="col-auto mb-3">
+        <%= form_tag virtual_users_path, method: 'get' do %>
+          <div class="input-group">
+            <%= text_field_tag 'keywords', params[:keywords], id: 'search_keywords', class: 'form-control form-control-sm', placeholder: '关键字搜索' %>
+            <%= text_field_tag 'mobile', params[:mobile], id: 'search_mobile', class: 'form-control form-control-sm', placeholder: '手机号查询' %>
+            <div class="input-group-text bg-transparent">
+              <%= submit_tag '查询', style: 'border: none; background-color: transparent;' %>
+            </div>
+            <div class="input-group-text bg-transparent">
+              <%= button_tag '清空', type: 'button', style: 'border: none; background-color: transparent;', onclick: 'clearSearch()' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">姓名</th>
+          <th scope="col">性别</th>
+          <th scope="col">生日</th>
+          <th scope="col">手机号</th>
+          <th scope="col">关联账号</th>
+          <th class="text-end" scope="col">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @virtual_users %>
+      </tbody>
+    </table>
+    <%= paginate @virtual_users%>
+  </div>
+</div>
+
+<%# 将搜索栏条件全部清除 %>
+<script>
+  function clearSearch() {
+    document.getElementById('search_keywords').value = ''
+    document.getElementById('search_mobile').value = ''
+  }
+</script>

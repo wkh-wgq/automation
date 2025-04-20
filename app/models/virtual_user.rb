@@ -1,13 +1,18 @@
-# == 虚拟用户
-#
-#  email          :string   登陆邮箱
-#  password       :string   邮箱登陆密码
-#  address_id     :integer  地址
-#  credit_card_id :integer  信用卡
-#
 class VirtualUser < ApplicationRecord
-  belongs_to :address
-  belongs_to :credit_card
+  has_many :accounts, foreign_key: :user_id, dependent: :destroy
 
-  validates_uniqueness_of :email
+  validates_presence_of :first_name, :last_name, :mobile, :birthday, :gender
+  validates_uniqueness_of :mobile
+
+  scope :search, ->(keywords) {
+    where("(last_name || first_name) LIKE ?", "%#{keywords}%")
+  }
+
+  scope :by_mobile, ->(mobile) {
+    where(mobile: mobile)
+  }
+
+  def name
+    self.last_name + self.first_name
+  end
 end

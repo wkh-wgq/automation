@@ -10,22 +10,60 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_01_133836) do
-  create_table "addresses", force: :cascade do |t|
-    t.string "postal_code"
-    t.string "house_number"
-    t.string "street_address"
+ActiveRecord::Schema[8.0].define(version: 2025_04_15_061246) do
+  create_table "accounts", force: :cascade do |t|
+    t.string "account_no"
+    t.integer "company_id", null: false
+    t.integer "user_id", null: false
+    t.integer "address_id"
+    t.integer "payment_id"
+    t.string "password"
+    t.datetime "last_login_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_no", "company_id"], name: "index_accounts_on_account_no_and_company_id", unique: true
+    t.index ["address_id"], name: "index_accounts_on_address_id"
+    t.index ["company_id"], name: "index_accounts_on_company_id"
+    t.index ["payment_id"], name: "index_accounts_on_payment_id"
+    t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
-  create_table "credit_cards", force: :cascade do |t|
-    t.string "cardholder_name"
-    t.string "card_number"
-    t.string "expiration_date"
-    t.string "security_code"
+  create_table "addresses", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.json "detail"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_addresses_on_company_id"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_companies_on_code", unique: true
+    t.index ["name"], name: "index_companies_on_name", unique: true
+  end
+
+  create_table "emails", force: :cascade do |t|
+    t.string "email"
+    t.string "parent_id"
+    t.string "domain"
+    t.string "imap_password"
+    t.string "mobile"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_emails_on_email", unique: true
+    t.index ["parent_id"], name: "index_emails_on_parent_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.string "mode"
+    t.json "info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_payments_on_company_id"
   end
 
   create_table "plans", force: :cascade do |t|
@@ -53,19 +91,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_01_133836) do
   end
 
   create_table "virtual_users", force: :cascade do |t|
-    t.string "email"
-    t.string "password"
-    t.integer "address_id", null: false
-    t.integer "credit_card_id", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "gender"
+    t.date "birthday"
+    t.string "mobile"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "mobile"
-    t.index ["address_id"], name: "index_virtual_users_on_address_id"
-    t.index ["credit_card_id"], name: "index_virtual_users_on_credit_card_id"
+    t.index ["mobile"], name: "index_virtual_users_on_mobile", unique: true
   end
 
   add_foreign_key "records", "plans"
   add_foreign_key "records", "virtual_users"
-  add_foreign_key "virtual_users", "addresses"
-  add_foreign_key "virtual_users", "credit_cards"
 end

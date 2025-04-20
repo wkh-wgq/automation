@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5>新建虚拟用户</h5>
+      </div>
+      <div class="col-3" style="text-align: end">
+        <%= link_to "返回", virtual_users_path, class: 'btn btn-secondary btn-sm' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body border border-top-0">
+    <%= render 'form', virtual_user: @virtual_user%>
+  </div>
+</div>

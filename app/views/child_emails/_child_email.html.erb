@@ -1,0 +1,12 @@
+
+<tr id="<%= dom_id email %>">
+  <td><%= email.email %></td>
+  <td><%= email.mobile %></td>
+  <td><%= email.accounts.size %>个</td>
+  <td class="text-end">
+    <div style="display:flex;justify-content:flex-end;">
+      <%= link_to '编辑', edit_child_email_path(email), class: 'btn btn-link p-0' %>
+      <%= button_to '删除', child_email_path(email), method: 'delete', class: 'btn btn-link p-0', data: {turbo_confirm: '确定要删除吗？'} %>
+    </div>
+  </td>
+</tr>   

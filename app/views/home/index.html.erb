@@ -1,0 +1,31 @@
+<div class="card text-bg-light mb-3">
+	<div class="card-body">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">首页</li>
+			</ol>
+		</nav>
+	</div>
+</div>
+
+<div class="card">
+	<div class="bg-holder d-none d-lg-block bg-card">
+	</div>
+	<div class="card-body position-relative">
+		<div class="col-lg-10">
+			<h4>工作台</h4>
+			<hr>
+			
+			<%= link_to '公司管理', companies_path, class: "btn btn-primary" %>
+
+      <%= link_to '邮箱管理', emails_path, class: "btn btn-primary" %>
+
+      <%= link_to '虚拟用户管理', virtual_users_path, class: "btn btn-primary" %>
+
+			<%= link_to '账户管理', accounts_path, class: "btn btn-primary" %>
+
+		</div>
+	</div>
+</div>
+
+

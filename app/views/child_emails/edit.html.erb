@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5>编辑子邮箱</h5>
+      </div>
+      <div class="col-3" style="text-align: end">
+        <%= link_to "返回", email_child_emails_path(email_id: @email.parent_id), class: 'btn btn-secondary btn-sm' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body border border-top-0">
+    <%= render 'form', email: @email%>
+  </div>
+</div>

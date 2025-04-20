@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5>新建公司</h5>
+      </div>
+      <div class="col-3" style="text-align: end">
+        <%= link_to "返回", companies_path, class: 'btn btn-secondary btn-sm' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body border border-top-0">
+    <%= render 'form', company: @company%>
+  </div>
+</div>

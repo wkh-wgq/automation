@@ -1,0 +1,11 @@
+
+<tr id="<%= dom_id company %>">
+  <td><%= company.name %></td>
+  <td><%= company.code %></td>
+  <td class="text-end">
+    <div style="display:flex;justify-content:flex-end;">
+      <%= link_to '编辑', edit_company_path(company), class: 'btn btn-link p-0' %>
+      <%= button_to '删除', company_path(company), method: 'delete', class: 'btn btn-link p-0', data: {turbo_confirm: '确定要删除吗？'} %>
+    </div>
+  </td>
+</tr>   

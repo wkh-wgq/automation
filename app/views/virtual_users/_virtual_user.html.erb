@@ -1,0 +1,14 @@
+
+<tr id="<%= dom_id virtual_user %>">
+  <td><%= virtual_user.name %></td>
+  <td><%= virtual_user.gender %></td>
+  <td><%= virtual_user.birthday %></td>
+  <td><%= virtual_user.mobile %></td>
+  <td><%= virtual_user.accounts.size %>个</td>
+  <td class="text-end">
+    <div style="display:flex;justify-content:flex-end;">
+      <%= link_to '编辑', edit_virtual_user_path(virtual_user), class: 'btn btn-link p-0' %>
+      <%= button_to '删除', virtual_user_path(virtual_user), method: 'delete', class: 'btn btn-link p-0', data: {turbo_confirm: '确定要删除吗？'} %>
+    </div>
+  </td>
+</tr>   

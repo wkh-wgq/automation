@@ -65,3 +65,6 @@ gem "playwright-ruby-client", "~> 1.51"
 
 # 生成假数据
 gem "faker", "~> 3.5"
+
+# 分页
+gem "kaminari", "~> 1.2"

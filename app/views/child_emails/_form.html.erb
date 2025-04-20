@@ -1,0 +1,27 @@
+<%= form_with(url: email_child_emails_path(email_id: email.parent_id), method: :post, scope: :email) do |form| %>
+  <% if email.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(email.errors.count, "error") %> prohibited this email from being saved:</h2>
+
+      <ul>
+        <% email.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3 mt-3">
+    <%= form.label '邮箱', class: "form-label" %>
+    <%= form.text_field :email, class: "form-control" %>
+  </div>
+
+  <div class="mb-3 mt-3">
+    <%= form.label '手机号', class: "form-label" %>
+    <%= form.text_field :mobile, class: "form-control" %>
+  </div>
+
+  <div class="d-grid gap-2">
+    <%= form.submit '创建', class: 'btn btn-primary' %>
+  </div>
+<% end %>
