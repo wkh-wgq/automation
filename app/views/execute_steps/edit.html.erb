@@ -1,0 +1,18 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5>编辑步骤</h5>
+      </div>
+      <div class="col-3" style="text-align: end">
+        <%= link_to "返回", plan_execute_steps_path(plan_id: @execute_step.plan_id), class: 'btn btn-secondary btn-sm' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body border border-top-0">
+    <%= turbo_frame_tag "edit_step_#{@execute_step.id}" do %>
+      <%= render 'form', execute_step: @execute_step %>
+    <% end %>
+  </div>
+</div>

@@ -65,6 +65,6 @@ class RecordsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def record_params
-      params.expect(record: [ :plan_id, :virtual_user_id, :order_no, :failed_step, :error_message ])
+      params.expect(record: [ :plan_id, :account_id, :state, :failed_step, :error_message ])
     end
 end

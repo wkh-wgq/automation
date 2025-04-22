@@ -1,0 +1,12 @@
+<tr id="<%= dom_id(execute_step) %>">
+  <td><%= execute_step.type %></td>
+  <td><%= execute_step.element %></td>
+  <td><%= execute_step.action %></td>
+  <td><%= execute_step.action_value %></td>
+  <td class="text-end">
+    <div style="display:flex;justify-content:flex-end;">
+      <%= link_to '编辑', edit_execute_step_path(execute_step), class: 'btn btn-link p-0', data: { turbo_frame: "edit_step_#{execute_step.id}" } %>
+      <%= button_to '删除', execute_step_path(execute_step), method: 'delete', class: 'btn btn-link p-0', data: {turbo_confirm: '确定要删除吗？'} %>
+    </div>
+  </td>
+</tr>

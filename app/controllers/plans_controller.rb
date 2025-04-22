@@ -3,7 +3,7 @@ class PlansController < ApplicationController
 
   # GET /plans or /plans.json
   def index
-    @plans = Plan.all.order(created_at: :desc)
+    @plans = Plan.includes(:company).order(created_at: :desc).page(page_params)
   end
 
   # GET /plans/1 or /plans/1.json
@@ -38,7 +38,7 @@ class PlansController < ApplicationController
   def update
     respond_to do |format|
       if @plan.update(plan_params)
-        format.html { redirect_to @plan, notice: "Plan was successfully updated." }
+        format.html { redirect_to plans_path, notice: "Plan was successfully updated." }
         format.json { render :show, status: :ok, location: @plan }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,6 +65,6 @@ class PlansController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def plan_params
-      params.expect(plan: [ :link, :product_name, :type, :quantity, :batch_size, :execute_time ])
+      params.expect(plan: [ :title, :company_id, :execute_time ])
     end
 end

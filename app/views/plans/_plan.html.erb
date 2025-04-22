@@ -1,9 +1,13 @@
 
 <tr id="<%= dom_id plan %>">
-  <td><%= plan.id %></td>
-  <td><%= plan.link %></td>
-  <td><%= plan.product_name %></td>
-  <td><%= plan.quantity %></td>
-  <td><%= plan.batch_size %></td>
+  <td><%= plan.title %></td>
+  <td><%= plan.company.name %></td>
   <td><%= plan.execute_time&.strftime("%Y-%m-%d %H:%M:%S") %></td>
+  <td class="text-end">
+    <div style="display:flex;justify-content:flex-end;">
+      <%= link_to '编辑', edit_plan_path(plan), class: 'btn btn-link p-0' %>
+      <%= link_to '步骤', plan_execute_steps_path(plan_id: plan.id), class: 'btn btn-link p-0'  %>
+      <%= link_to '执行记录', plan_records_path(plan_id: plan.id), class: 'btn btn-link p-0'  %>
+    </div>
+  </td>
 </tr>   

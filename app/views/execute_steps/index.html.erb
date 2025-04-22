@@ -1,0 +1,35 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Plans" %>
+<div class="card shadow-sm">
+  <div class="card-header">
+    <h5>步骤列表</h5>
+    <div class="row">
+      <%= turbo_frame_tag 'new_step' do %>
+        <div style="text-align: end;">
+          <%= link_to "返回", plans_path, class: 'btn btn-secondary btn-sm', data: {turbo_frame: "_top"} %>
+          <%= link_to '新建', new_plan_execute_step_path, class: 'btn btn-primary btn-sm' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>步骤类型</th>
+          <th>定位元素</th>
+          <th>动作</th>
+          <th>动作参数</th>
+          <th class="text-end" scope="col">操作</th>
+        </tr>
+      </thead>
+      <%= turbo_frame_tag 'execute_steps' do %>
+        <tbody id="execute-steps-list">
+          <%= render @execute_steps %>
+        </tbody>
+      <% end %>
+    </table>
+  </div>
+</div>

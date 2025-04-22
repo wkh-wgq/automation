@@ -1,27 +1,10 @@
-<div id="<%= dom_id record %>">
-  <p>
-    <strong>Plan:</strong>
-    <%= record.plan_id %>
-  </p>
-
-  <p>
-    <strong>Virtual user:</strong>
-    <%= record.virtual_user_id %>
-  </p>
-
-  <p>
-    <strong>Order no:</strong>
-    <%= record.order_no %>
-  </p>
-
-  <p>
-    <strong>Failed step:</strong>
-    <%= record.failed_step %>
-  </p>
-
-  <p>
-    <strong>Error message:</strong>
-    <%= record.error_message %>
-  </p>
-
-</div>
+<tr>
+  <td><%= record.account.account_no %></td>
+  <td><%= record.state %></td>
+  <td><%= record.error_message %></td>
+  <td class="text-end">
+    <div style="display:flex;justify-content:flex-end;">
+      <%= link_to '执行', nil, class: 'btn btn-link p-0' %>
+    </div>
+  </td>
+</tr>   

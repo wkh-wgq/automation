@@ -1,9 +1,9 @@
 class CreateEmails < ActiveRecord::Migration[8.0]
   def change
     create_table :emails do |t|
-      t.string :email
-      t.string :parent_id
-      t.string :domain
+      t.string :email, null: false
+      t.string :parent_id, comment: '父id,企业邮箱会有转发的情况'
+      t.string :domain, comment: '域名'
       t.string :imap_password
       t.string :mobile
 

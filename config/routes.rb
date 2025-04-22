@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :records
-  resources :plans
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -13,13 +11,25 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
-
+  # 账户
   resources :accounts
+  # 支付
   resources :payments
+  # 地址
   resources :addresses
+  # 公司
   resources :companies
+  # 邮箱
   resources :emails do
     resources :child_emails, shallow: true
   end
+  # 虚拟用户
   resources :virtual_users
+  # 计划
+  resources :plans, shallow: true do
+    # 执行步骤
+    resources :execute_steps
+    # 执行记录
+    resources :records
+  end
 end

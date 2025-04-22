@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @execute_step %>
+
+<div>
+  <%= link_to "Edit this execute step", edit_execute_step_path(@execute_step) %> |
+  <%= link_to "Back to execute steps", execute_steps_path %>
+
+  <%= button_to "Destroy this execute step", @execute_step, method: :delete %>
+</div>

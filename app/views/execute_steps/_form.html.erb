@@ -1,0 +1,44 @@
+<%= form_with(url: plan_execute_steps_path(plan_id: execute_step.plan_id), method: :post, scope: :execute_step) do |form| %>
+  <% if execute_step.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(execute_step.errors.count, "error") %> prohibited this execute_step from being saved:</h2>
+
+      <ul>
+        <% execute_step.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card mb-3 step-fields">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-2">
+          <%= form.label "步骤类型", class: "form-label" %>
+          <%= form.select :type, type_for_select, {}, { class: "form-select step-type" } %>
+        </div>
+
+        <div class="col-md-4">
+          <%= form.label "定位元素", class: "form-label" %>
+          <%= form.text_field :element, class: "form-control" %>
+        </div>
+        <div class="col-md-2">
+          <%= form.label "动作", class: "form-label" %>
+          <%= form.select :action, action_for_select, {}, { class: "form-select step-action" }  %>
+        </div>
+        <div class="col-md-2">
+          <%= form.label "动作参数", class: "form-label" %>
+          <%= form.text_field :action_value, class: "form-control" %>
+        </div>
+
+        <div class="col-md-1">
+          <%= form.submit execute_step.new_record? ? '创建' : '更新', class: 'btn btn-primary' %>
+        </div>
+        <div class="col-md-1">
+          <%= link_to '取消', plan_execute_steps_path(plan_id: execute_step.plan_id), type: 'button', class: 'btn btn-primary', data: {turbo_frame: '_top'} %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

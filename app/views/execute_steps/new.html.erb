@@ -2,7 +2,7 @@
   <div class="card-header">
     <div class="row">
       <div class="col-9">
-        <h5>编辑计划</h5>
+        <h5>新建步骤</h5>
       </div>
       <div class="col-3" style="text-align: end">
         <%= link_to "返回", plans_path, class: 'btn btn-secondary btn-sm' %>
@@ -11,6 +11,8 @@
   </div>
 
   <div class="card-body border border-top-0">
-    <%= render 'form', plan: @plan%>
+    <%= turbo_frame_tag 'new_step' do %>
+      <%= render 'form', execute_step: @execute_step%>
+    <% end %>
   </div>
 </div>

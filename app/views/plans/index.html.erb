@@ -8,6 +8,7 @@
         <h5>计划列表</h5>
       </div>
       <div class="col-3" style="text-align: end;">
+        <%= link_to '回首页', root_path, class: 'btn btn-secondary btn-sm' %>
         <%= link_to '新建计划', new_plan_path, class: 'btn btn-primary btn-sm' %>
       </div>
     </div>
@@ -17,12 +18,10 @@
     <table class="table">
       <thead>
         <tr>
-          <th>id</th>
-          <th>链接</th>
-          <th>商品名称</th>
-          <th>抢购数量(个)</th>
-          <th>批次数量(个)</th>
+          <th>标题</th>
+          <th>公司</th>
           <th>执行时间</th>
+          <th class="text-end" scope="col">操作</th>
         </tr>
       </thead>
       <tbody>

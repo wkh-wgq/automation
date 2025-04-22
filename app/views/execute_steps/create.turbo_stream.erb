@@ -1,0 +1,12 @@
+
+
+<%= turbo_stream.append "execute-steps-list" do %>
+  <%= render @execute_step %>
+<% end %>
+
+<%= turbo_stream.update "new_step" do %>
+  <div style="text-align: end;">
+    <%= link_to "返回", plans_path, class: 'btn btn-secondary btn-sm' %>
+    <%= link_to '新建', new_plan_execute_step_path, class: 'btn btn-primary btn-sm' %>
+  </div>
+<% end %>

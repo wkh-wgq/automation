@@ -68,3 +68,6 @@ gem "faker", "~> 3.5"
 
 # 分页
 gem "kaminari", "~> 1.2"
+
+# 状态机
+gem "aasm", "~> 5.5"

@@ -1,16 +1,31 @@
 <p style="color: green"><%= notice %></p>
 
 <% content_for :title, "Records" %>
+<div class="card shadow-sm">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5>执行记录列表</h5>
+      </div>
+      <div class="col-3" style="text-align: end;">
+        <%= link_to "返回", plans_path, class: 'btn btn-secondary btn-sm' %>
+      </div>
+    </div>
+  </div>
 
-<h1>Records</h1>
-
-<div id="records">
-  <% @records.each do |record| %>
-    <%= render record %>
-    <p>
-      <%= link_to "Show this record", record %>
-    </p>
-  <% end %>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>账号</th>
+          <th>状态</th>
+          <th>失败原因</th>
+          <th class="text-end" scope="col">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @records %>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<%= link_to "New record", new_record_path %>

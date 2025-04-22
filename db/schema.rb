@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_15_061246) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_20_080931) do
   create_table "accounts", force: :cascade do |t|
     t.string "account_no"
     t.integer "company_id", null: false
@@ -57,6 +57,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_061246) do
     t.index ["parent_id"], name: "index_emails_on_parent_id"
   end
 
+  create_table "execute_steps", force: :cascade do |t|
+    t.integer "plan_id", null: false
+    t.string "type", null: false
+    t.string "element"
+    t.string "action", null: false
+    t.string "action_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plan_id"], name: "index_execute_steps_on_plan_id"
+  end
+
   create_table "payments", force: :cascade do |t|
     t.integer "company_id", null: false
     t.string "mode"
@@ -67,27 +78,27 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_061246) do
   end
 
   create_table "plans", force: :cascade do |t|
-    t.string "link"
-    t.integer "quantity", default: 1
-    t.integer "batch_size", null: false
+    t.string "title"
+    t.integer "company_id", null: false
     t.datetime "execute_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "product_name"
-    t.string "type", default: "normal", null: false
+    t.index ["company_id"], name: "index_plans_on_company_id"
   end
 
   create_table "records", force: :cascade do |t|
+    t.integer "company_id", null: false
     t.integer "plan_id", null: false
-    t.integer "virtual_user_id", null: false
-    t.string "order_no"
-    t.string "failed_step"
-    t.string "error_message"
+    t.integer "account_id", null: false
+    t.string "state", default: "pending", null: false
+    t.integer "failed_step"
+    t.text "error_message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["plan_id", "virtual_user_id"], name: "index_records_on_plan_id_and_virtual_user_id", unique: true
+    t.index ["account_id"], name: "index_records_on_account_id"
+    t.index ["company_id"], name: "index_records_on_company_id"
+    t.index ["plan_id", "account_id"], name: "index_records_on_plan_id_and_account_id", unique: true
     t.index ["plan_id"], name: "index_records_on_plan_id"
-    t.index ["virtual_user_id"], name: "index_records_on_virtual_user_id"
   end
 
   create_table "virtual_users", force: :cascade do |t|
@@ -100,7 +111,4 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_061246) do
     t.datetime "updated_at", null: false
     t.index ["mobile"], name: "index_virtual_users_on_mobile", unique: true
   end
-
-  add_foreign_key "records", "plans"
-  add_foreign_key "records", "virtual_users"
 end
