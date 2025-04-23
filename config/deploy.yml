@@ -2,12 +2,12 @@
 service: automation
 
 # Name of the container image.
-image: your-user/automation
+image: wangkaihua/automation
 
 # Deploy to these servers.
 servers:
   web:
-    - 192.168.0.1
+    - 47.79.93.44
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -19,13 +19,13 @@ servers:
 # Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
 proxy:
   ssl: true
-  host: app.example.com
+  host: 47.79.93.44
 
 # Credentials for your image host.
 registry:
   # Specify the registry server, if you're not using Docker Hub
   # server: registry.digitalocean.com / ghcr.io / ...
-  username: your-user
+  username: wangkaihua
 
   # Always use an access token rather than real password when possible.
   password:
@@ -88,8 +88,8 @@ builder:
   #   - RAILS_MASTER_KEY
 
 # Use a different ssh user than root
-# ssh:
-#   user: app
+ssh:
+  user: root
 
 # Use accessory services (secrets come from .kamal/secrets).
 # accessories:

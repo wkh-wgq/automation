@@ -1,0 +1,18 @@
+name: "ai_power_demo"
+
+services:
+  rails-app:
+    image: 'wangkaihua/automation:v1'
+
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+
+    ports:
+      - '3000:3000'
+
+    environment:
+      # master key
+      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+
+    volumes:
+      - ./storage:/rails/storage
+
