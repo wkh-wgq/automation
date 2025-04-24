@@ -1,31 +1,32 @@
 class RecordsController < ApplicationController
+  before_action :set_plan, only: %i[ index new create ]
   before_action :set_record, only: %i[ show edit update destroy ]
 
-  # GET /records or /records.json
+  # GET /plans/:plan_id/records
   def index
-    @records = Record.all
+    @records = @plan.records
   end
 
   # GET /records/1 or /records/1.json
   def show
   end
 
-  # GET /records/new
+  # GET /plans/:plan_id/records/new
   def new
-    @record = Record.new
+    @record = @plan.records.new
   end
 
   # GET /records/1/edit
   def edit
   end
 
-  # POST /records or /records.json
+  # POST /plans/:plan_id/records
   def create
-    @record = Record.new(record_params)
+    @record = @plan.records.new(record_params)
 
     respond_to do |format|
       if @record.save
-        format.html { redirect_to @record, notice: "Record was successfully created." }
+        format.html { redirect_to plan_records_path(plan_id: @plan.id), notice: "Record was successfully created." }
         format.json { render :show, status: :created, location: @record }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,7 @@ class RecordsController < ApplicationController
   def update
     respond_to do |format|
       if @record.update(record_params)
-        format.html { redirect_to @record, notice: "Record was successfully updated." }
+        format.html { redirect_to plan_records_path(plan_id: @record.plan_id), notice: "Record was successfully updated." }
         format.json { render :show, status: :ok, location: @record }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,10 +50,11 @@ class RecordsController < ApplicationController
 
   # DELETE /records/1 or /records/1.json
   def destroy
+    plan_id = @record.plan_id
     @record.destroy!
 
     respond_to do |format|
-      format.html { redirect_to records_path, status: :see_other, notice: "Record was successfully destroyed." }
+      format.html { redirect_to plan_records_path(plan_id: plan_id), status: :see_other, notice: "Record was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -61,6 +63,10 @@ class RecordsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_record
       @record = Record.find(params.expect(:id))
+    end
+
+    def set_plan
+      @plan = Plan.find(params.expect(:plan_id))
     end
 
     # Only allow a list of trusted parameters through.

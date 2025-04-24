@@ -1,12 +1,16 @@
-<% content_for :title, "Editing account" %>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5>编辑账户</h5>
+      </div>
+      <div class="col-3" style="text-align: end">
+        <%= link_to "返回", root_path, class: 'btn btn-secondary btn-sm' %>
+      </div>
+    </div>
+  </div>
 
-<h1>Editing account</h1>
-
-<%= render "form", account: @account %>
-
-<br>
-
-<div>
-  <%= link_to "Show this account", @account %> |
-  <%= link_to "Back to accounts", accounts_path %>
+  <div class="card-body border border-top-0">
+    <%= render 'form', account: @account%>
+  </div>
 </div>

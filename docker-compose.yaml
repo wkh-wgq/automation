@@ -1,10 +1,15 @@
-name: "ai_power_demo"
+name: "automation"
 
 services:
   rails-app:
-    image: 'wangkaihua/automation:v1'
+    image: 'wangkaihua/automation:v3'
+
+    platform: linux/ard64
 
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+
+    volumes:
+      - "sqlite-data:/rails/db"
 
     ports:
       - '3000:3000'
@@ -13,6 +18,7 @@ services:
       # master key
       - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
 
-    volumes:
-      - ./storage:/rails/storage
 
+volumes:
+  sqlite-data:
+    driver: local

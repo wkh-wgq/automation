@@ -11,42 +11,37 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :account_no, style: "display: block" %>
-    <%= form.text_field :account_no %>
+  <div class="mb-3 mt-3">
+    <%= form.label '账号', class: "form-label" %>
+    <%= form.select :account_no, email_for_select, {}, { class: "form-select" } %>
   </div>
 
-  <div>
-    <%= form.label :company_id, style: "display: block" %>
-    <%= form.text_field :company_id %>
+  <div class="mb-3 mt-3">
+    <%= form.label '公司', class: "form-label" %>
+    <%= form.select :company_id, company_for_select, {}, { class: "form-select" } %>
   </div>
 
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
+  <div class="mb-3 mt-3">
+    <%= form.label '虚拟用户', class: "form-label" %>
+    <%= form.select :user_id, virtual_user_for_select, {}, { class: "form-select" } %>
   </div>
 
-  <div>
-    <%= form.label :address_id, style: "display: block" %>
-    <%= form.text_field :address_id %>
+  <div class="mb-3 mt-3">
+    <%= form.label '地址', class: "form-label" %>
+    <%= form.text_field :address_id, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :payment_id, style: "display: block" %>
-    <%= form.text_field :payment_id %>
+  <div class="mb-3 mt-3">
+    <%= form.label '支付方式', style: "display: block" %>
+    <%= form.text_field :payment_id, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :password, style: "display: block" %>
-    <%= form.text_field :password %>
+  <div class="mb-3 mt-3">
+    <%= form.label '登陆密码', style: "display: block" %>
+    <%= form.text_field :password, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :last_login_time, style: "display: block" %>
-    <%= form.datetime_field :last_login_time %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="d-grid gap-2">
+    <%= form.submit '创建', class: 'btn btn-primary' %>
   </div>
 <% end %>

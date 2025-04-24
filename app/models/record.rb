@@ -50,4 +50,10 @@ class Record < ApplicationRecord
     self.assign_attributes(failed_step: step_id, error_message: error_message)
     self.fail!
   end
+
+  private
+
+    def auto_populate_attributes
+      self.company ||= self.plan.company
+    end
 end

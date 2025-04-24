@@ -9,6 +9,7 @@
       </div>
       <div class="col-3" style="text-align: end;">
         <%= link_to "返回", plans_path, class: 'btn btn-secondary btn-sm' %>
+        <%= link_to '新建执行记录', new_plan_record_path(plan_id: @plan.id), class: 'btn btn-primary btn-sm' %>
       </div>
     </div>
   </div>

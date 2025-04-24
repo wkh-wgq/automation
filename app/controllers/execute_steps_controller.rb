@@ -2,7 +2,7 @@ class ExecuteStepsController < ApplicationController
   before_action :set_plan, only: %i[ index new create ]
   before_action :set_execute_step, only: %i[ show edit update destroy ]
 
-  # GET /execute_steps or /execute_steps.json
+  # GET /plans/:plan_id/execute_steps
   def index
     @execute_steps = @plan.steps
   end
@@ -11,7 +11,7 @@ class ExecuteStepsController < ApplicationController
   def show
   end
 
-  # GET /execute_steps/new
+  # GET /plans/:plan_id/execute_steps/new
   def new
     @execute_step = @plan.steps.new
   end
@@ -20,13 +20,12 @@ class ExecuteStepsController < ApplicationController
   def edit
   end
 
-  # POST /execute_steps or /execute_steps.json
+  # POST /plans/:plan_id/execute_steps
   def create
     @execute_step = @plan.steps.new(execute_step_params)
 
     respond_to do |format|
       if @execute_step.save
-        format.html { redirect_to @execute_step, notice: "Execute step was successfully created." }
         format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +38,6 @@ class ExecuteStepsController < ApplicationController
   def update
     respond_to do |format|
       if @execute_step.update(execute_step_params)
-        format.html { redirect_to @execute_step, notice: "Execute step was successfully updated." }
         format.turbo_stream
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +51,6 @@ class ExecuteStepsController < ApplicationController
     @execute_step.destroy!
 
     respond_to do |format|
-      format.html { redirect_to execute_steps_path, status: :see_other, notice: "Execute step was successfully destroyed." }
       format.turbo_stream
     end
   end
