@@ -32,7 +32,7 @@ class Record < ApplicationRecord
     end
 
     # 执行完成
-    event :complete do
+    event :complete, before: :clear_error_message do
       transitions from: :executing, to: :completed
     end
 
@@ -43,12 +43,16 @@ class Record < ApplicationRecord
   end
 
   def execute_by_job
-    RecordExecuteJob.perform_now(self.id)
+    RecordExecuteJob.perform_later(self.id)
   end
 
   def to_fail(error_message, step_id = nil)
     self.assign_attributes(failed_step: step_id, error_message: error_message)
     self.fail!
+  end
+
+  def clear_error_message
+    self.assign_attributes(failed_step: nil, error_message: nil)
   end
 
   private

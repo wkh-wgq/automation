@@ -1,3 +1,5 @@
+require "playwright"
+
 class RecordExecutor < ApplicationService
   attr_reader :page, :account
   attr_accessor :record
@@ -5,7 +7,7 @@ class RecordExecutor < ApplicationService
     @record = record
     @account = @record.account
     @plan = @record.plan
-    @steps = Rails.cache.fetch("plan.steps-#{plan.id}", expires_in: 30.minutes) do
+    @steps = Rails.cache.fetch("plan.steps-#{@plan.id}", expires_in: 30.minutes) do
       @plan.steps.order(:id).to_a
     end
     logger.info "用户(#{@account.account_no})开始加载驱动"
@@ -13,7 +15,7 @@ class RecordExecutor < ApplicationService
     @browser = @playwright_exec.playwright.chromium.launch(headless: false)
     @page = @browser.new_page
     @current_step_index = 0
-    klass = "SystemStep::#{plan.company.code.classify}Service".constantize
+    klass = "SystemStep::#{@plan.company.code.classify}Service".constantize
     @system_step_service = klass.new(@page, record)
   end
 
@@ -29,6 +31,7 @@ class RecordExecutor < ApplicationService
       execute_step(current_step)
       @current_step_index += 1
     end
+    record.complete!
   ensure
     page.close
     @browser.close
@@ -38,6 +41,8 @@ class RecordExecutor < ApplicationService
   def execute_step(step)
     if step.system?
       block = -> { @system_step_service.send(step.action) }
+    elsif step.action == "goto"
+      block = -> { page.goto(step.action_value) }
     else
       args = [ step.action ]
       args << step.action_value if step.action_value.present?
@@ -47,6 +52,7 @@ class RecordExecutor < ApplicationService
   end
 
   def execute_with_log(step, &block)
+    logger.debug "记录(#{record.id})执行-#{step.action}"
     block.call
   rescue Exception => e
     logger.error "记录(#{record.id})的step(#{step.id})执行异常：#{e.message}"

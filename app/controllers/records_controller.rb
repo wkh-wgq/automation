@@ -1,6 +1,6 @@
 class RecordsController < ApplicationController
   before_action :set_plan, only: %i[ index new create ]
-  before_action :set_record, only: %i[ show edit update destroy ]
+  before_action :set_record, only: %i[ show edit update destroy execute ]
 
   # GET /plans/:plan_id/records
   def index
@@ -55,6 +55,15 @@ class RecordsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to plan_records_path(plan_id: plan_id), status: :see_other, notice: "Record was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
+  # PUT /records/{id}/execute
+  def execute
+    @record.execute!
+    respond_to do |format|
+      format.html { redirect_to plan_records_path(plan_id: @record.plan_id), notice: "Record was successfully executed." }
       format.json { head :no_content }
     end
   end

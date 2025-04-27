@@ -30,6 +30,10 @@ Rails.application.routes.draw do
     # 执行步骤
     resources :execute_steps
     # 执行记录
-    resources :records
+    resources :records do
+      member do
+        put :execute
+      end
+    end
   end
 end

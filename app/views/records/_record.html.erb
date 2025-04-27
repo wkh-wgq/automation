@@ -4,7 +4,9 @@
   <td><%= record.error_message %></td>
   <td class="text-end">
     <div style="display:flex;justify-content:flex-end;">
-      <%= link_to '执行', nil, class: 'btn btn-link p-0' %>
+      <% if record.may_execute? %>
+        <%= button_to '执行', execute_record_path(record), method: 'put', class: 'btn btn-link p-0' %>
+      <% end %>
     </div>
   </td>
 </tr>   
