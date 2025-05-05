@@ -22,9 +22,18 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body style="background:#adc0de70">
-    <div class="container p-5 my-5">
-      <%= yield %>
-    <div>
+  <body>
+    <%= render "layouts/top_nav" %>
+
+    <div class="container-fluid">
+      <div class="row">
+        <%= render "layouts/side_menu" %>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          <%= render "layouts/breadcrum" %>
+          <%= yield %>
+        </main>
+      </div>
+    </div>
   </body>
 </html>
