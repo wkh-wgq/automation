@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @auto_register_record %>
+
+<div>
+  <%= link_to "Edit this auto register record", edit_auto_register_record_path(@auto_register_record) %> |
+  <%= link_to "Back to auto register records", auto_register_records_path %>
+
+  <%= button_to "Destroy this auto register record", @auto_register_record, method: :delete %>
+</div>

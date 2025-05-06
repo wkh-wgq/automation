@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_20_080931) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_06_090836) do
   create_table "accounts", force: :cascade do |t|
     t.string "account_no"
     t.integer "company_id", null: false
@@ -34,6 +34,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_080931) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_addresses_on_company_id"
+  end
+
+  create_table "auto_register_records", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.integer "virtual_user_id", null: false
+    t.integer "address_id", null: false
+    t.string "email", null: false
+    t.string "state"
+    t.string "error_message"
+    t.json "properties"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_auto_register_records_on_address_id"
+    t.index ["company_id"], name: "index_auto_register_records_on_company_id"
+    t.index ["email", "company_id"], name: "index_auto_register_records_on_email_and_company_id", unique: true
+    t.index ["virtual_user_id", "company_id"], name: "index_auto_register_records_on_virtual_user_id_and_company_id", unique: true
+    t.index ["virtual_user_id"], name: "index_auto_register_records_on_virtual_user_id"
   end
 
   create_table "companies", force: :cascade do |t|

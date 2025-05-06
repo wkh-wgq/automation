@@ -1,5 +1,5 @@
 module SystemStep
-  class BaseService
+  class BaseService < ApplicationService
     # 排队的页面title
     QUEUE_UP_TITLE = "Queue-it"
     # 限制访问的页面title

@@ -24,7 +24,10 @@ Rails.application.routes.draw do
     resources :child_emails, shallow: true
   end
   # 虚拟用户
-  resources :virtual_users
+  resources :virtual_users, shallow: true do
+    # 自动注册记录
+    resources :auto_register_records
+  end
   # 计划
   resources :plans, shallow: true do
     # 执行步骤

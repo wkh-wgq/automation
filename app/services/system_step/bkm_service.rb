@@ -16,7 +16,10 @@ module SystemStep
       sleep(rand(0.5..2))
       page.locator("#form1Button").click
       sleep(rand(6..10))
-      unless page.url == MY_URL
+      if page.url == MY_URL
+        logger.info "用户(#{account.account_no})登陆成功"
+        record.account.update(last_login_time: Time.zone.now)
+      else
         raise "登陆失败！" if @login_retry_count >= 5
         @login_retry_count += 1
         login

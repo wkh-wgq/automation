@@ -1,5 +1,6 @@
 class VirtualUser < ApplicationRecord
   has_many :accounts, foreign_key: :user_id, dependent: :destroy
+  has_many :auto_register_records
 
   validates_presence_of :first_name, :last_name, :mobile, :birthday, :gender
   validates_uniqueness_of :mobile
