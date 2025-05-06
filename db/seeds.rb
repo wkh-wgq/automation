@@ -7,8 +7,3 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-
-# 创建默认地址
-Address.create!(postal_code: '1690075', house_number: '2-14-6', street_address: 'アライビル５階')
-# 创建默认信用卡
-CreditCard.create!(cardholder_name: 'lifangyi', card_number: '4514617600310462', expiration_date: '28-09', security_code: '405')
