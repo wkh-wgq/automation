@@ -1,4 +1,4 @@
-class SupportMailbox < ApplicationMailbox
+class BkmRegisterMailbox < ApplicationMailbox
   # 接收宝可梦注册邮件，并提取其中的注册链接进行注册
   def process
     decoded_text = mail.body.decoded.gsub(/\\x([0-9a-fA-F]{2})/) { |m| $1.hex.chr }.force_encoding("UTF-8")
