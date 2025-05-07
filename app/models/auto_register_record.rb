@@ -7,7 +7,9 @@ class AutoRegisterRecord < ApplicationRecord
 
   validates_uniqueness_of :virtual_user_id, scope: :company_id
   validates :email, presence: true, uniqueness: { scope: :company_id }
+  validate :validate_account
 
+  # 注册记录创建之后立刻发送邮件
   after_commit :send_register_email, on: :create
 
   aasm(:state) do
@@ -66,5 +68,15 @@ class AutoRegisterRecord < ApplicationRecord
   def set_properties(key, value)
     self.properties ||= {}
     self.properties[key] = value
+  end
+
+  private
+  def validate_account
+    if self.company.accounts.of_user(self.virtual_user_id).count > 0
+      errors.add(:base, "用户的账号已经存在！")
+    end
+    if self.company.accounts.of_account_no(self.email).count > 0
+      errors.add(:base, "邮箱的账号已经存在！")
+    end
   end
 end

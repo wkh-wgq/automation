@@ -1,4 +1,4 @@
-<%= form_with(model: auto_register_record) do |form| %>
+<%= form_with(url: virtual_user_auto_register_records_path(virtual_user_id: auto_register_record.virtual_user_id), method: :post, scope: :auto_register_record) do |form| %>
   <% if auto_register_record.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(auto_register_record.errors.count, "error") %> prohibited this auto_register_record from being saved:</h2>
@@ -11,37 +11,22 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :company_id, style: "display: block" %>
-    <%= form.text_field :company_id %>
+  <div class="mb-3 mt-3">
+    <%= form.label '公司', class: "form-label" %>
+    <%= form.select :company_id, company_for_select, {}, { class: "form-select" } %>
   </div>
 
-  <div>
-    <%= form.label :virtual_user_id, style: "display: block" %>
-    <%= form.text_field :virtual_user_id %>
+  <div class="mb-3 mt-3">
+    <%= form.label '邮箱', class: "form-label" %>
+    <%= form.select :email, email_for_select, {}, { class: "form-select" } %>
   </div>
 
-  <div>
-    <%= form.label :address_id, style: "display: block" %>
-    <%= form.text_field :address_id %>
+  <div class="mb-3 mt-3">
+    <%= form.label '地址', class: "form-label" %>
+    <%= form.select :address_id, address_for_select, {}, { class: "form-select" } %>
   </div>
 
-  <div>
-    <%= form.label :state, style: "display: block" %>
-    <%= form.text_field :state %>
-  </div>
-
-  <div>
-    <%= form.label :error_message, style: "display: block" %>
-    <%= form.text_field :error_message %>
-  </div>
-
-  <div>
-    <%= form.label :properties, style: "display: block" %>
-    <%= form.text_field :properties %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="d-grid gap-2">
+    <%= form.submit '创建', class: 'btn btn-primary' %>
   </div>
 <% end %>

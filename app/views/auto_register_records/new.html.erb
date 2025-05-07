@@ -1,11 +1,16 @@
-<% content_for :title, "New auto register record" %>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5>注册账户</h5>
+      </div>
+      <div class="col-3" style="text-align: end">
+        <%= link_to "返回", virtual_users_path, class: 'btn btn-secondary btn-sm' %>
+      </div>
+    </div>
+  </div>
 
-<h1>New auto register record</h1>
-
-<%= render "form", auto_register_record: @auto_register_record %>
-
-<br>
-
-<div>
-  <%= link_to "Back to auto register records", auto_register_records_path %>
+  <div class="card-body border border-top-0">
+    <%= render 'form', auto_register_record: @auto_register_record %>
+  </div>
 </div>

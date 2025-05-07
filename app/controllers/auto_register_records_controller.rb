@@ -1,31 +1,32 @@
 class AutoRegisterRecordsController < ApplicationController
+  before_action :set_virtual_user, only: %i[ index new create ]
   before_action :set_auto_register_record, only: %i[ show edit update destroy ]
 
-  # GET /auto_register_records or /auto_register_records.json
+  # GET /virtual_users/:virtual_user_id/auto_register_records
   def index
-    @auto_register_records = AutoRegisterRecord.all
+    @auto_register_records = @virtual_user.auto_register_records
   end
 
   # GET /auto_register_records/1 or /auto_register_records/1.json
   def show
   end
 
-  # GET /auto_register_records/new
+  # GET /virtual_users/:virtual_user_id/auto_register_records/new
   def new
-    @auto_register_record = AutoRegisterRecord.new
+    @auto_register_record = @virtual_user.auto_register_records.new
   end
 
   # GET /auto_register_records/1/edit
   def edit
   end
 
-  # POST /auto_register_records or /auto_register_records.json
+  # POST /virtual_users/:virtual_user_id/auto_register_records
   def create
-    @auto_register_record = AutoRegisterRecord.new(auto_register_record_params)
+    @auto_register_record = @virtual_user.auto_register_records.new(auto_register_record_params)
 
     respond_to do |format|
       if @auto_register_record.save
-        format.html { redirect_to @auto_register_record, notice: "Auto register record was successfully created." }
+        format.html { redirect_to @virtual_user, notice: "Auto register record was successfully created." }
         format.json { render :show, status: :created, location: @auto_register_record }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -63,8 +64,12 @@ class AutoRegisterRecordsController < ApplicationController
       @auto_register_record = AutoRegisterRecord.find(params.expect(:id))
     end
 
+    def set_virtual_user
+      @virtual_user = VirtualUser.find(params.expect(:virtual_user_id))
+    end
+
     # Only allow a list of trusted parameters through.
     def auto_register_record_params
-      params.expect(auto_register_record: [ :company_id, :virtual_user_id, :address_id, :state, :error_message, :properties ])
+      params.expect(auto_register_record: [ :company_id, :virtual_user_id, :address_id, :email ])
     end
 end
