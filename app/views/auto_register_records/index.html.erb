@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Auto register records" %>
+
+<h1>Auto register records</h1>
+
+<div id="auto_register_records">
+  <% @auto_register_records.each do |auto_register_record| %>
+    <%= render auto_register_record %>
+    <p>
+      <%= link_to "Show this auto register record", auto_register_record %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New auto register record", new_auto_register_record_path %>

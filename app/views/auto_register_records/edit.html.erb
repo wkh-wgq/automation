@@ -1,0 +1,12 @@
+<% content_for :title, "Editing auto register record" %>
+
+<h1>Editing auto register record</h1>
+
+<%= render "form", auto_register_record: @auto_register_record %>
+
+<br>
+
+<div>
+  <%= link_to "Show this auto register record", @auto_register_record %> |
+  <%= link_to "Back to auto register records", auto_register_records_path %>
+</div>

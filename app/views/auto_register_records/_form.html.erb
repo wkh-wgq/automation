@@ -1,0 +1,32 @@
+<%= form_with(url: virtual_user_auto_register_records_path(virtual_user_id: auto_register_record.virtual_user_id), method: :post, scope: :auto_register_record) do |form| %>
+  <% if auto_register_record.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(auto_register_record.errors.count, "error") %> prohibited this auto_register_record from being saved:</h2>
+
+      <ul>
+        <% auto_register_record.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3 mt-3">
+    <%= form.label '公司', class: "form-label" %>
+    <%= form.select :company_id, company_for_select, {}, { class: "form-select" } %>
+  </div>
+
+  <div class="mb-3 mt-3">
+    <%= form.label '邮箱', class: "form-label" %>
+    <%= form.select :email, email_for_select, {}, { class: "form-select" } %>
+  </div>
+
+  <div class="mb-3 mt-3">
+    <%= form.label '地址', class: "form-label" %>
+    <%= form.select :address_id, address_for_select, {}, { class: "form-select" } %>
+  </div>
+
+  <div class="d-grid gap-2">
+    <%= form.submit '创建', class: 'btn btn-primary' %>
+  </div>
+<% end %>

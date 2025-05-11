@@ -6,8 +6,8 @@
   <td class="text-end">
     <div style="display:flex;justify-content:flex-end;">
       <%= link_to '编辑', edit_plan_path(plan), class: 'btn btn-link p-0' %>
-      <%= link_to '步骤', plan_execute_steps_path(plan_id: plan.id), class: 'btn btn-link p-0'  %>
-      <%= link_to '执行记录', plan_records_path(plan_id: plan.id), class: 'btn btn-link p-0'  %>
+      <%= link_to '步骤', plan_execute_steps_path(plan), class: 'btn btn-link p-0'  %>
+      <%= link_to '执行记录', plan_records_path(plan), class: 'btn btn-link p-0'  %>
     </div>
   </td>
 </tr>   

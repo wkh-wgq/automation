@@ -7,6 +7,8 @@
   <td><%= virtual_user.accounts.size %>个</td>
   <td class="text-end">
     <div style="display:flex;justify-content:flex-end;">
+      <%= link_to '详情', virtual_user_path(virtual_user), class: 'btn btn-link p-0' %>
+      <%= link_to '注册账户', new_virtual_user_auto_register_record_path(virtual_user), class: 'btn btn-link p-0' %>
       <%= link_to '编辑', edit_virtual_user_path(virtual_user), class: 'btn btn-link p-0' %>
       <%= button_to '删除', virtual_user_path(virtual_user), method: 'delete', class: 'btn btn-link p-0', data: {turbo_confirm: '确定要删除吗？'} %>
     </div>

@@ -7,7 +7,7 @@
     <div style="display:flex;justify-content:flex-end;">
       <%= link_to '编辑', edit_email_path(email), class: 'btn btn-link p-0' %>
       <%= button_to '删除', email_path(email), method: 'delete', class: 'btn btn-link p-0', data: {turbo_confirm: '确定要删除吗？'} %>
-      <%= link_to '子邮箱列表', email_child_emails_path(email_id: email.id), class: 'btn btn-link p-0'  %>
+      <%= link_to '子邮箱列表', email_child_emails_path(email), class: 'btn btn-link p-0'  %>
     </div>
   </td>
 </tr>   

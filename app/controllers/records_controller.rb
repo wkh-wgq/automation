@@ -4,7 +4,7 @@ class RecordsController < ApplicationController
 
   # GET /plans/:plan_id/records
   def index
-    @records = @plan.records
+    @records = @plan.records.order(updated_at: :desc)
   end
 
   # GET /records/1 or /records/1.json

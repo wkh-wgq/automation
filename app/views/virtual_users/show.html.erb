@@ -1,10 +1,64 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @virtual_user %>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-9">
+        <h5>详情</h5>
+      </div>
+      <div class="col-3" style="text-align: end">
+        <%= link_to "返回", virtual_users_path, class: 'btn btn-primary btn-sm' %>
+      </div>
+    </div>
+  </div>
 
-<div>
-  <%= link_to "Edit this virtual user", edit_virtual_user_path(@virtual_user) %> |
-  <%= link_to "Back to virtual users", virtual_users_path %>
+  <div class="card-body">
+    <div class="mb-3 mt-3">
+      <%= label_tag '姓名', nil, class: 'form-label' %>
+      <%= tag.p @virtual_user.name, class: 'form-control' %>
+    </div>
 
-  <%= button_to "Destroy this virtual user", @virtual_user, method: :delete %>
+    <div class="mb-3 mt-3">
+      <%= label_tag '性别', nil, class: 'form-label' %>
+      <%= tag.p @virtual_user.gender, class: 'form-control' %>
+    </div>
+
+    <div class="mb-3 mt-3">
+      <%= label_tag '生日', nil, class: 'form-label' %>
+      <%= tag.p @virtual_user.birthday, class: 'form-control' %>
+    </div>
+
+    <% if @virtual_user.auto_register_records.present? %>
+      <% @virtual_user.auto_register_records.each do |record| %>
+        <div class="card">
+          <div class="card-header">
+            <%= record.company.name %>的注册情况
+          </div>
+          <div class="card-body">
+            <div class="mb-3 mt-3">
+              <%= label_tag '邮箱', nil, class: 'form-label' %>
+              <%= tag.p record.email, class: 'form-control' %>
+            </div>
+
+            <div class="mb-3 mt-3">
+              <%= label_tag '地址', nil, class: 'form-label' %>
+              <%= tag.p "#{record.address.detail['street_number']}-#{record.address.detail['address']}", class: 'form-control' %>
+            </div>
+
+            <div class="mb-3 mt-3">
+              <%= label_tag '状态', nil, class: 'form-label' %>
+              <%= tag.p format_state(record.state), class: 'form-control' %>
+            </div>
+
+            <% if record.failed? %>
+              <div class="mb-3 mt-3">
+                <%= label_tag '错误信息', nil, class: 'form-label' %>
+                <%= tag.p record.error_message, class: 'form-control' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>

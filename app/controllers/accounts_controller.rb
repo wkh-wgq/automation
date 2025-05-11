@@ -5,7 +5,7 @@ class AccountsController < ApplicationController
   def index
     @accounts = Account.includes(:company, :user)
     @accounts = @accounts.search(params[:keywords]) if params[:keywords].present?
-    @accounts = @accounts.by_company(params[:company_id]) if params[:company_id].present?
+    @accounts = @accounts.of_company(params[:company_id]) if params[:company_id].present?
     @accounts = @accounts.order(created_at: :desc).page(page_params)
   end
 

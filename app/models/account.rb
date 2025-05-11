@@ -10,7 +10,15 @@ class Account < ApplicationRecord
     where("account_no LIKE ?", "%#{keywords}%")
   }
 
-  scope :by_company, ->(company_id) {
+  scope :of_company, ->(company_id) {
     where(company_id: company_id)
+  }
+
+  scope :of_user, ->(user_id) {
+    where(user_id: user_id)
+  }
+
+  scope :of_account_no, ->(account_no) {
+    where(account_no: account_no)
   }
 end
