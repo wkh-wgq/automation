@@ -1,16 +1,26 @@
-<div class="card">
-  <div class="card-header">
-    <div class="row">
-      <div class="col-9">
-        <h5>新建虚拟用户</h5>
-      </div>
-      <div class="col-3" style="text-align: end">
-        <%= link_to "返回", virtual_users_path, class: 'btn btn-secondary btn-sm' %>
-      </div>
-    </div>
+<div class="row g-5">
+  <div class="col-12">
+    <hr class="mt-0 mb-2" />
+    <%= link_to virtual_users_path, class: 'btn btn-primary btn-sm' do %>
+      <i class="bi bi-people-fill"></i>
+      虚拟用户一览
+    <% end %>
+    <button onclick="window.history.back()" class="btn btn-secondary btn-sm">
+      <i class="bi bi-arrow-left"></i>
+      返回上一页
+    </button>
+    <hr class="mt-2 mb-0" />
   </div>
-
-  <div class="card-body border border-top-0">
+  <div class="col-md-7 col-lg-8 mt-3">
+    <h6 class="text-secondary mb-3">新建虚拟用户</h6>
     <%= render 'form', virtual_user: @virtual_user%>
+  </div>
+  <div class="col-md-5 col-lg-4 mt-3">
+    <h6 class="text-secondary mb-3">虚拟用户基础信息样例</h6>
+    <p>姓：<%= Faker::Name.last_name %></p>
+    <p>名：<%= Faker::Name.first_name %></p>
+    <p>性别：<%= ['男', '女'].sample %></p>
+    <p>手机号：<%= "#{['080', '090'].sample}#{Faker::Number.number(digits: 8)}" %></p>
+    <p>生日：<%= Faker::Date.birthday(min_age: 18, max_age: 60).strftime('%Y-%m-%d') %></p>
   </div>
 </div>

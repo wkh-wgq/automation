@@ -10,33 +10,42 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="mb-3 mt-3">
-    <%= form.label '姓', class: "form-label" %>
-    <%= form.text_field :last_name, class: "form-control" %>
+  <% gender = ['male', 'female'].sample %>
+  <div class="row g-3">
+    <div class="col-sm-4">
+      <%= form.label '姓氏', class: "form-label" %>
+      <%= form.text_field :last_name, class: "form-control", readonly: true, value: Faker::Name.last_name %>
+      <small class="text-body-secondary">Full name as displayed on card</small>
+    </div>
+    <div class="col-sm-4">
+      <%= form.label '名字', class: "form-label" %>
+      <%= form.text_field :first_name, class: "form-control", readonly: true, value: gender == 'female' ? Faker::Name.female_first_name : Faker::Name.male_first_name %>
+    </div>
+    <div class="col-sm-4">
+      <%= form.label '性别', class: "form-label" %>
+      <div class="radio-group">
+        <div class="form-check form-check-inline">
+          <%= form.radio_button :gender, '男', class: "form-check-input", checked: gender == 'male', disabled: true %>
+          <%= form.label :gender_男, '男', class: "form-check-label" %>
+        </div>
+        <div class="form-check form-check-inline">
+          <%= form.radio_button :gender, '女', class: "form-check-input", checked: gender == 'female', disabled: true %>
+          <%= form.label :gender_女, '女', class: "form-check-label" %>
+        </div>
+        <%= form.hidden_field :gender, value: gender == 'male' ? '男' : '女' %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <%= form.label '出生日期', class: "form-label" %>
+      <%= form.date_field :birthday, class: "form-control", readonly: true, value: rand(Date.new(1975, 1, 1)..(Date.today - 18.years)).strftime('%Y-%m-%d') %>
+    </div>
+    <div class="col-sm-6">
+      <%= form.label '手机号', class: "form-label" %>
+      <%= form.phone_field :mobile, class: "form-control", readonly: true, value: "#{['080', '090'].sample}#{Faker::Number.number(digits: 8)}" %>
+    </div>
   </div>
 
-  <div class="mb-3 mt-3">
-    <%= form.label '名', class: "form-label" %>
-    <%= form.text_field :first_name, class: "form-control" %>
-  </div>
-
-  <div class="mb-3 mt-3">
-    <%= form.label '性别', class: "form-label" %>
-    <%= form.text_field :gender, class: "form-control" %>
-  </div>
-
-  <div class="mb-3 mt-3">
-    <%= form.label '手机号', class: "form-label" %>
-    <%= form.text_field :mobile, class: "form-control" %>
-  </div>
-
-  <div class="mb-3 mt-3">
-    <%= form.label '生日', class: "form-label" %>
-    <%= form.text_field :birthday, class: "form-control" %>
-  </div>
-
-  <div class="d-grid gap-2">
-    <%= form.submit '创建', class: 'btn btn-primary' %>
+  <div class="d-grid gap-2 mt-3">
+    <%= form.submit class: 'btn btn-primary' %>
   </div>
 <% end %> 

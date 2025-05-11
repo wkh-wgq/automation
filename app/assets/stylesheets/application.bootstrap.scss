@@ -1,2 +1,29 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+.radio-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.form-check-inline {
+  margin-right: 1rem;
+}
+
+.form-check-input {
+  cursor: pointer;
+  &:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+}
+
+.form-check-label {
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  &:hover {
+    color: #0d6efd;
+  }
+}
