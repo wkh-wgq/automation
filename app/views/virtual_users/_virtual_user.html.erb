@@ -1,16 +1,29 @@
 
 <tr id="<%= dom_id virtual_user %>">
-  <td><%= virtual_user.name %></td>
+  <td><%= link_to virtual_user.fullname, virtual_user_path(virtual_user) %></td>
   <td><%= virtual_user.gender %></td>
   <td><%= virtual_user.birthday %></td>
-  <td><%= virtual_user.mobile %></td>
-  <td><%= virtual_user.accounts.size %>个</td>
   <td class="text-end">
-    <div style="display:flex;justify-content:flex-end;">
-      <%= link_to '详情', virtual_user_path(virtual_user), class: 'btn btn-link p-0' %>
-      <%= link_to '注册账户', new_virtual_user_auto_register_record_path(virtual_user), class: 'btn btn-link p-0' %>
-      <%= link_to '编辑', edit_virtual_user_path(virtual_user), class: 'btn btn-link p-0' %>
-      <%= button_to '删除', virtual_user_path(virtual_user), method: 'delete', class: 'btn btn-link p-0', data: {turbo_confirm: '确定要删除吗？'} %>
+    <div style="display:flex;justify-content:flex-end;gap: .25rem;">
+      <%= link_to new_virtual_user_auto_register_record_path(virtual_user),
+                  class: 'btn btn-sm btn-primary',
+                  data: { 
+                    bs_toggle: 'tooltip',
+                    bs_placement: 'top',
+                    bs_title: '关联网站账号'
+                  } do %>
+        <i class="bi bi-person-fill-up"></i>
+      <% end %>
+      <%= link_to edit_virtual_user_path(virtual_user),
+                  class: 'btn btn-sm btn-info',
+                  data: {bs_toggle: 'tooltip', bs_placement: 'top', bs_title: '编辑虚拟用户'} do %>
+        <i class="bi bi-person-fill-gear"></i>
+      <% end %>
+      <%= button_to virtual_user_path(virtual_user), method: 'delete',
+                  class: 'btn btn-sm btn-danger',
+                  data: {bs_toggle: 'tooltip', bs_placement: 'top', bs_title: '删除虚拟用户', turbo_confirm: '确定要删除吗？'} do %>
+        <i class="bi bi-person-x-fill"></i>
+      <% end %>
     </div>
   </td>
 </tr>   

@@ -78,7 +78,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_06_151430) do
     t.integer "virtual_user_id", null: false
     t.integer "address_id", null: false
     t.string "email", null: false
-    t.string "state"
+    t.string "state", default: "pending", null: false
     t.string "error_message"
     t.json "properties"
     t.datetime "created_at", null: false

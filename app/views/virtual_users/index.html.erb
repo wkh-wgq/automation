@@ -33,25 +33,23 @@
       <% end %>
     </div>
   </div>
-
-  <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">姓名</th>
-          <th scope="col">性别</th>
-          <th scope="col">生日</th>
-          <th scope="col">手机号</th>
-          <th scope="col">关联账号</th>
-          <th class="text-end" scope="col">操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= render @virtual_users %>
-      </tbody>
-    </table>
-    <%= paginate @virtual_users%>
 </div>
-
+<div class="col-12">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">姓名</th>
+        <th scope="col">性别</th>
+        <th scope="col">生日</th>
+        <th class="text-end" scope="col">操作</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <%= render @virtual_users %>
+    </tbody>
+  </table>
+  <%= paginate @virtual_users%>
+</div>
 <%# 将搜索栏条件全部清除 %>
 <script>
   function clearSearch() {

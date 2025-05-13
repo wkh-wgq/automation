@@ -10,39 +10,41 @@
       </ul>
     </div>
   <% end %>
-  <% gender = ['male', 'female'].sample %>
-  <div class="row g-3">
+  <% gender = generate_gender %>
+  <div class="row gx-3 gy-4">
     <div class="col-sm-4">
       <%= form.label '姓氏', class: "form-label" %>
-      <%= form.text_field :last_name, class: "form-control", readonly: true, value: Faker::Name.last_name %>
-      <small class="text-body-secondary">Full name as displayed on card</small>
+      <%= form.text_field :last_name, virtual_user_field_options(:last_name, virtual_user, -> { Faker::Name.last_name }) %>
     </div>
     <div class="col-sm-4">
       <%= form.label '名字', class: "form-label" %>
-      <%= form.text_field :first_name, class: "form-control", readonly: true, value: gender == 'female' ? Faker::Name.female_first_name : Faker::Name.male_first_name %>
+      <%= form.text_field :first_name, virtual_user_field_options(:first_name, virtual_user, -> { generate_name(gender) }) %>
     </div>
     <div class="col-sm-4">
       <%= form.label '性别', class: "form-label" %>
       <div class="radio-group">
         <div class="form-check form-check-inline">
-          <%= form.radio_button :gender, '男', class: "form-check-input", checked: gender == 'male', disabled: true %>
+          <%= form.radio_button :gender, '男', class: "form-check-input", checked: gender == 'male', disabled: virtual_user.new_record? %>
           <%= form.label :gender_男, '男', class: "form-check-label" %>
         </div>
         <div class="form-check form-check-inline">
-          <%= form.radio_button :gender, '女', class: "form-check-input", checked: gender == 'female', disabled: true %>
+          <%= form.radio_button :gender, '女', class: "form-check-input", checked: gender == 'female', disabled: virtual_user.new_record? %>
           <%= form.label :gender_女, '女', class: "form-check-label" %>
         </div>
-        <%= form.hidden_field :gender, value: gender == 'male' ? '男' : '女' %>
+        <%= form.hidden_field :gender, value: virtual_user.new_record? ? (gender == 'male' ? '男' : '女') : virtual_user.gender %>
       </div>
     </div>
     <div class="col-sm-6">
       <%= form.label '出生日期', class: "form-label" %>
-      <%= form.date_field :birthday, class: "form-control", readonly: true, value: rand(Date.new(1975, 1, 1)..(Date.today - 18.years)).strftime('%Y-%m-%d') %>
+      <%= form.date_field :birthday, virtual_user_field_options(:birthday, virtual_user, -> { generate_birthday }) %>
+      <small class="text-body-secondary">生成当日需满18周岁</small>
     </div>
     <div class="col-sm-6">
       <%= form.label '手机号', class: "form-label" %>
-      <%= form.phone_field :mobile, class: "form-control", readonly: true, value: "#{['080', '090'].sample}#{Faker::Number.number(digits: 8)}" %>
+      <%= form.phone_field :mobile, virtual_user_field_options(:mobile, virtual_user, -> { generate_mobile }) %>
+      <small class="text-body-secondary">默认使用日本手机格式</small>
     </div>
+    
   </div>
 
   <div class="d-grid gap-2 mt-3">
