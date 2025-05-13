@@ -59,7 +59,7 @@ group :development do
 end
 
 # 自动化浏览器操作
-gem "playwright-ruby-client", "~> 1.51"
+gem "playwright-ruby-client", "~> 1.52"
 
 # 生成假数据
 gem "faker", "~> 3.5"
